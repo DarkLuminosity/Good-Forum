@@ -1,0 +1,73 @@
+<head>
+    <title>{{ question.question_text }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.0/css/all.css" rel="stylesheet">
+</head>
+
+<body style="background-color: powderblue;">
+    <div class="container">
+        <div class="jumbotron">    
+    
+            <h1 style="font-family: papyrus">{{ question.question_text }}</h1>
+            <p style="font-family: papyrus">Posts</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="pl-1" style="width: 500px;">
+            {% if error_message %}
+                <p><strong>{{ error_message }}</strong></p>
+            {% endif %}
+
+
+            {% if question.choice_set.all %}
+                {% for choice in question.choice_set.all %}
+                    
+                        <div class="pl-2">
+                            <div class="container">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {{ choice.choice_text }}
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <form action="{% url 'polls:vote' question.id %}" = method="post">    
+                                                {% csrf_token %}
+                                                <button class="btn btn-primary" type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" >
+                                                    <i class="far fa-thumbs-up"></i>  
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <form action="{% url 'polls:delete' question.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button class="btn btn-danger" type="submit" name="delete" id="choice{{ forloop.counter }}" value="{{ choice.id }}" >
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                {% endfor %}
+            {% else %}
+                <p>No posts yet :(</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="container">
+        <form action="{% url 'polls:addchoice' question.id %}">
+            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-pencil-alt"></i>  Create New Post</button> 
+        </form>
+
+        <form action="{% url 'polls:index' %}">
+            <button type="submit" class="btn btn-info btn-block"><i class="fas fa-home"></i>  Back to Home</button>
+        </form>
+    </div>
+</body>

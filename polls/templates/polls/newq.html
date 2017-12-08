@@ -1,0 +1,32 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link href="https://use.fontawesome.com/releases/v5.0.0/css/all.css" rel="stylesheet">
+    <title>Name Yourself</title>
+</head>
+
+<body style="background-color:powderblue;">
+
+    <div class='container'>
+        <div class='jumbotron'>
+            <h1 style="font-family:papyrus;">Welcome to Good Forum!</h1>
+            <p style="font-family:papyrus;"> Give yourself a name and write about anything you want!</p>
+        </div>
+    </div>
+
+<div class='container'> 
+        <form action="{% url 'polls:newq' %}" method="post">
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="newq">Name Yourself: </label>
+                <input class="form-control" type="textbox" name="newquestion" placeholder="Username" id="newquestion" pattern=".{5,}" required title="Your name must have at least 5 characters"/>
+                </br>
+                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-user"></i>  Create New User</button>
+            </div>
+        </form>
+
+    <form action="{% url 'polls:index' %}">
+        <button type="submit" class="btn btn-info btn-block"><i class="fas fa-home"></i>  Back to Home</button>
+    </form>
+</div>
+
+</body>

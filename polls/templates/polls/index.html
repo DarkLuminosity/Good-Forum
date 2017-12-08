@@ -1,0 +1,39 @@
+<head>
+    <title>Good Forum</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.0/css/all.css" rel="stylesheet">
+</head>
+<body style="background-color: powderblue;">
+
+    <div class='container'>
+        <div class='jumbotron'>
+            <h1 style="font-family:papyrus;">Welcome to Good Forum!</h1>
+            <p style="font-family:papyrus;"> Give yourself a name and write about anything you want!</p>
+        </div>
+    </div>
+
+    <form action="{% url 'polls:addquestion' %}">
+        <div class='container'> 
+        
+            {% if latest_question_list %}
+        
+                {% for question in latest_question_list %}
+                    <div class="form-group">
+                        <div class="row" align="left">
+                            <div class="pl-3" style="width: 250px;">
+                                <a href="{% url 'polls:detail' question.id %}" class="form-control">{{ question.question_text }}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    
+            {% else %}
+                <p>No people yet :(</p>
+            {% endif %}         
+        </div>
+
+        <div class="container">
+            <button type="submit" class="btn btn-primary btn-large btn-block"><i class="fas fa-users" aria-hidden="true"></i>  Create New Account</button>
+        </div>
+    </form>
+</body>
